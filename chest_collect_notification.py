@@ -1,10 +1,11 @@
 import time
 from datetime import datetime
-import tkinter as tk
-from tkinter import messagebox
+import pygetwindow as gw
 
 prev = datetime.now()
 wait_time = 60 * 45
+
+WINDOW_TITLE = r'C:\WINDOWS\system32\cmd.exe'
 
 def wait_until_target():
     while True:
@@ -14,24 +15,24 @@ def wait_until_target():
         et = (now - prev).seconds
         
         if et >= wait_time:
-            show_popup(now)
+            notify(now)
 
         print(et)
         time.sleep(10)
 
-def show_popup(now):
+def notify(now):
     global prev
     prev = now
-    root = tk.Tk()
-    root.withdraw()
 
-    top = tk.Toplevel()
-    top.attributes('-topmost', True)
-    top.withdraw()
-    top.after(0, lambda: top.focus_force())
-
-    messagebox.showinfo("BGSI: Collect Chests", "Open BGSI in Roblox to collect your chests.")
-    top.destroy()
-    root.destroy()
+    windows = gw.getWindowsWithTitle(WINDOW_TITLE)
+    
+    if windows:
+        win = windows[0]
+        if win.isMinimized:
+            win.restore()
+        win.activate()
+        print("Open BGSI in Roblox to collect your chests.")
+    else:
+        print("Window does not exist.")
 
 wait_until_target()
