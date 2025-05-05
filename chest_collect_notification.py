@@ -27,8 +27,6 @@ def notify(now):
     global prev
     prev = now
 
-    sound_dir = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "chest_collect_notification_sound.mp3")
-    playsound(sound_dir)
     windows = gw.getWindowsWithTitle(WINDOW_TITLE)
     
     if windows:
@@ -37,6 +35,9 @@ def notify(now):
             win.restore()
         win.activate()
         print("Open BGSI in Roblox to collect your chests.")
+        sound_dir = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "chest_collect_notification_sound.mp3")
+        sound = playsound(sound_dir)
+        sound.stop()
     else:
         print("Window does not exist.")
 
