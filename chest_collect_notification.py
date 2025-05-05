@@ -3,19 +3,25 @@ from datetime import datetime
 import tkinter as tk
 from tkinter import messagebox
 
-target_minute = 0
+prev = datetime.now()
+wait_time = 60 * 45
 
 def wait_until_target():
     while True:
-        now = datetime.now()
-        if now.minute == target_minute:
-            show_popup()
-            time.sleep(70)
-        else:
-            print(now)
-            time.sleep(10)
+        global prev
 
-def show_popup():
+        now = datetime.now()
+        et = (now - prev).seconds
+        
+        if et >= wait_time:
+            show_popup(now)
+
+        print(et)
+        time.sleep(10)
+
+def show_popup(now):
+    global prev
+    prev = now
     root = tk.Tk()
     root.withdraw()
 
