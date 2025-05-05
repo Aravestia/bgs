@@ -1,9 +1,12 @@
 import time
 from datetime import datetime
 import pygetwindow as gw
+from playsound3 import playsound
+import os
+import sys
 
 prev = datetime.now()
-wait_time = 60 * 45
+wait_time = 60 * 44
 
 WINDOW_TITLE = r'C:\WINDOWS\system32\cmd.exe'
 
@@ -18,12 +21,14 @@ def wait_until_target():
             notify(now)
 
         print(et)
-        time.sleep(10)
+        time.sleep(5)
 
 def notify(now):
     global prev
     prev = now
 
+    sound_dir = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "chest_collect_notification_sound.mp3")
+    playsound(sound_dir)
     windows = gw.getWindowsWithTitle(WINDOW_TITLE)
     
     if windows:
