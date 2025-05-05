@@ -18,7 +18,14 @@ def wait_until_target():
 def show_popup():
     root = tk.Tk()
     root.withdraw()
+
+    top = tk.Toplevel()
+    top.attributes('-topmost', True)
+    top.withdraw()
+    top.after(0, lambda: top.focus_force())
+
     messagebox.showinfo("BGSI: Collect Chests", "Open BGSI in Roblox to collect your chests.")
+    top.destroy()
     root.destroy()
 
 wait_until_target()
